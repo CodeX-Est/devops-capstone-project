@@ -125,6 +125,8 @@ class TestAccountService(TestCase):
 
     # ADD YOUR TEST CASES HERE ...
 
+    """READ ACCOUNT"""
+
     def test_read_an_account(self):
         """Should read one account"""
         account = self._create_accounts(1)[0]
@@ -151,3 +153,21 @@ class TestAccountService(TestCase):
 
         # assert that the resp.status_code is status.HTTP_404_NOT_FOUND
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    """LIST ACCOUNTS"""
+
+    def test_get_account_list(self):
+        """Should get a list of accounts"""
+        self._create_accounts(5)
+
+        # send a self.client.get() request to the BASE_URL
+        response = self.client.get(BASE_URL)
+
+        # assert that the resp.status_code is status.HTTP_200_OK
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # get the data from resp.get_json()
+        data_response = response.get_json()
+
+        # assert that the len() of the data is 5 (the number of accounts you created)
+        self.assertEqual(len(data_response), 5)

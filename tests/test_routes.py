@@ -205,3 +205,15 @@ class TestAccountService(TestCase):
         
         # assert that the updated_account["name"] is equal to Super Sonic
         self.assertEqual(updated_account["name"], "Super Sonic")
+
+    """Delete Account"""
+
+    def test_delete_account(self):
+        """Should Delete Account"""
+        create_account = self._create_accounts(1)[0]
+
+        # send a self.client.delete() request to the BASE_URL with an id of an account
+        response = self.client.delete(f"{BASE_URL}/{create_account.id}")
+
+        # assert that the resp.status_code is status.HTTP_204_NO_CONTENT
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

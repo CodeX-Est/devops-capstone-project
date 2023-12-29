@@ -217,3 +217,14 @@ class TestAccountService(TestCase):
 
         # assert that the resp.status_code is status.HTTP_204_NO_CONTENT
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    """Error Handler"""
+
+    def test_method_not_allowed(self):
+        """It should not allow an illegal method call"""
+
+        # call self.client.delete() on the BASE_URL
+        response = self.client.delete(BASE_URL)
+
+        # assert that the resp.status_code is status.HTTP_405_METHOD_NOT_ALLOWED
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
